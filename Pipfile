@@ -7,7 +7,10 @@ name = "pypi"
 django = "*"
 environs = {version = "==8.0.0", extras = ["django"]}
 psycopg2-binary = "*"
-
+djangorestframework= "*"
+dj_rest_auth= "*"
+django-allauth= "*"
+gunicorn= "*"
 [dev-packages]
 
 [requires]
