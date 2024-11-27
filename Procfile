@@ -1,1 +1,1 @@
-web: gunicorn config.wsgi --log-file -
+web: gunicorn config.wsgi:application --workers=3 --log-file -
