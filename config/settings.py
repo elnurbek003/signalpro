@@ -28,7 +28,7 @@ SECRET_KEY = env.str('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG",default=False)
 ENVIRONMENT = env.str('ENVIRONMENT', default='development')
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 # INTERNAL_IPS=(
 #     '127.0.0.1',
 #     'localhost:8000'
@@ -156,9 +156,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
+STATICFILES_DIRS = [
+    # If you have a different static files directory, update the path here
+    BASE_DIR / "static",  # Or specify another location
+]
 STATIC_URL = 'static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
