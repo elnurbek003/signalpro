@@ -161,6 +161,24 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",  # Or specify another location
 ]
 STATIC_URL = 'static/'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
+LOGGING_CONFIG = 'logging.config.dictConfig'
 
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 # Default primary key field type
