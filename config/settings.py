@@ -37,6 +37,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://singanlspro-production.up.railway.app',
     # Add other trusted origins here if needed
 ]
+CSRF_COOKIE_SECURE = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
