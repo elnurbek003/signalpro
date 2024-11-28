@@ -33,6 +33,10 @@ ENVIRONMENT = env.str("ENVIRONMENT", default="development")
 # )
 
 # Application definition
+CSRF_TRUSTED_ORIGINS = [
+    'https://singanlspro-production.up.railway.app',
+    # Add other trusted origins here if needed
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
