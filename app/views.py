@@ -7,6 +7,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.http import HttpResponse
 import csv
+from io import StringIO
 import numpy as np
 from django.conf import settings
 import matplotlib
@@ -20,6 +21,7 @@ from scipy.signal import butter, filtfilt
 import plotly.graph_objects as go
 import os
 import io
+import requests
 import base64
 from django.core.files.storage import default_storage
 from django.views.decorators.csrf import csrf_exempt
@@ -423,6 +425,7 @@ class FourierTransformView(View):
 # Define file paths and labels
 
 
+
 file_paths = [
     'https://github.com/lochinbek02/singanlspro/raw/master/okclass.csv',
     'https://github.com/lochinbek02/singanlspro/raw/master/qisishclass.csv',
@@ -446,9 +449,8 @@ def calculate_metrics(signal_values, selected_features):
             else:
                 return 4 * index / N
         modified_values2 = np.array([modify_MAV2(x, i) for i, x in enumerate(signal_values)])
-
         modified_values1 = np.array([modify_MAV1(x) for x in signal_values])
-        # Calculate only the requested metrics
+        
         if 'MAV' in selected_features:
             metrics['MAV'] = np.sum(np.abs(signal_values)) / N
         if 'G' in selected_features:
@@ -462,10 +464,8 @@ def calculate_metrics(signal_values, selected_features):
         if 'VAR' in selected_features:
             metrics['VAR'] = np.var(signal_values)
         if 'TM3' in selected_features:
-            VAR = np.var(signal_values)
             metrics['TM3'] = np.mean(np.abs(signal_values))
         if 'TM5' in selected_features:
-            VAR = np.var(signal_values)
             metrics['TM5'] = np.mean(signal_values**2)
         if 'RMS' in selected_features:
             metrics['RMS'] = np.sqrt(np.mean(signal_values**2))
@@ -483,40 +483,22 @@ def calculate_metrics(signal_values, selected_features):
         if 'FFT' in selected_features:
             fft_values = np.fft.fft(signal_values)
             FFT_magnitude = np.abs(fft_values)  # Magnitude of the FFT
-
-            # Variant 1: Maksimal magnitudani saqlash
-            FFT_max = np.max(FFT_magnitude)
-
-            # Variant 2: O'rtacha magnitudani saqlash
-            FFT_mean = np.mean(FFT_magnitude)
-
-            # Variant 3: Energiyani saqlash
-            FFT_energy = np.sum(FFT_magnitude**2)
-            metrics['FFT'] = FFT_mean
+            metrics['FFT'] = np.mean(FFT_magnitude)
         if 'PSR' in selected_features:
             fft_values = np.fft.fft(signal_values)
             power_spectrum = np.abs(fft_values) ** 2
-
-            # Signal kuchining umumiy yig'indisi
             total_power = np.sum(power_spectrum)
-
-            # Signalning maksimal chastotasi (dominant frequency) ni topish
             dominant_frequency_power = np.max(power_spectrum)
-
-            # PSR ni hisoblash
             PSR = dominant_frequency_power / total_power if total_power > 0 else 0
             metrics['PSR'] = PSR
         if 'MNF' in selected_features:
             fft_values = np.fft.fft(signal_values)
             FFT_magnitude = np.abs(fft_values)
-
-            # Chastotalar diapazoni bo'yicha o'rtacha hisoblash
             frequencies = np.fft.fftfreq(len(signal_values))
             MNF = np.sum(frequencies * FFT_magnitude) / np.sum(FFT_magnitude)
-            metrics['MNF'] =MNF
-        
+            metrics['MNF'] = MNF
         if 'WAMP' in selected_features:
-            metrics['WAMP'] = np.mean(np.abs(signal_values)) 
+            metrics['WAMP'] = np.mean(np.abs(signal_values))
         if 'IEMG' in selected_features:
             metrics['IEMG'] = np.sum(np.abs(signal_values))
         if 'logDetect' in selected_features:
@@ -530,6 +512,15 @@ def calculate_metrics(signal_values, selected_features):
 class ClassificationAPIView(APIView):
     parser_classes = [JSONParser]
 
+    def download_file(self, url):
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            return pd.read_csv(StringIO(response.text), header=None)
+        except requests.exceptions.RequestException as e:
+            print(f"Error downloading file: {e}")
+            return None
+
     def post(self, request):
         selected_features = request.data.get('features', [])
         
@@ -539,10 +530,10 @@ class ClassificationAPIView(APIView):
         results = []
         try:
             for file_path, label in zip(file_paths, labels):
-                if not os.path.exists(file_path):
-                    return Response({"error": f"'{file_path}' fayli topilmadi."}, status=status.HTTP_404_NOT_FOUND)
+                data = self.download_file(file_path)
+                if data is None:
+                    return Response({"error": f"Failed to download or read file at '{file_path}'."}, status=status.HTTP_404_NOT_FOUND)
 
-                data = pd.read_csv(file_path, header=None)
                 for column in data.columns:
                     signal_values = data[column].values
 
@@ -555,6 +546,9 @@ class ClassificationAPIView(APIView):
                     metrics = calculate_metrics(signal_values, selected_features)
                     metrics['Label'] = label  # Add label to each file's metrics
                     results.append(metrics)
+
+            if not results:
+                return Response({"error": "No valid results found."}, status=status.HTTP_400_BAD_REQUEST)
 
             # Generate CSV response
             response = HttpResponse(content_type='text/csv')

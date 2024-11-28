@@ -55,7 +55,7 @@ urlpatterns = [
     path('yoyish/Fourier/',FourierTransformView.as_view(), name='Fourier'),
     path('qisish/Fourier/',FourierTransformView.as_view(), name='Fourier'),
     path('classification/',ClassificationAPIView.as_view(), name='classification-api'),
-     path('upload-csv/', upload_csv, name='upload_csv'),
+    path('upload-csv/', upload_csv, name='upload_csv'),
 ]
 
 if settings.DEBUG:
