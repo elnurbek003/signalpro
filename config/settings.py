@@ -155,10 +155,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATICFILES_DIRS = [
-    # If you have a different static files directory, update the path here
-    BASE_DIR / "static",  # Or specify another location
+    BASE_DIR / "static",  # Or wherever you want to store static files
 ]
-STATIC_URL = 'static/'
+
+# URL to access static files
+STATIC_URL = '/static/'
+
+# Where collected static files will be stored in production
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -178,7 +182,6 @@ LOGGING = {
 }
 LOGGING_CONFIG = 'logging.config.dictConfig'
 
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
