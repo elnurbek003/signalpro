@@ -21,3 +21,4 @@ pipenv==2023.2.18
 psycopg2-binary==2.9.5
 scikit-learn==1.5.2
 rq
+whitenoise==6.8.2

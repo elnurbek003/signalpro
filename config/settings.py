@@ -48,10 +48,12 @@ INSTALLED_APPS = [
     # global apps
     'rest_framework',
     'djoser',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -61,6 +63,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', 
     
 ]
+
+STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 CORS_ALLOW_ALL_ORIGINS = True  # Ishlashga ruxsat
 
 ROOT_URLCONF = 'config.urls'
@@ -154,6 +158,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # Or wherever you want to store static files
 ]
