@@ -1,1 +1,1 @@
-web: gunicorn config.wsgi --log -
+web: python manage.py migrate && gunicorn config.wsgi:application --log-level info
