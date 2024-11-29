@@ -385,8 +385,9 @@ class Scaling(View):
 class FourierTransformView(View):
     def get(self, request):
         # CSV faylini o'qish
+        
         url_path = request.path.split('/')
-        data = pd.read_csv(f'hhttps://raw.githubusercontent.com/lochinbek02/singanlspro/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://raw.githubusercontent.com/lochinbek02/singanlspro/master/{url_path[2]}pro.csv')
 
         # Assumption: CSV faylida 'Signal' nomli ustun bor
         if '1' not in data.columns:
@@ -537,6 +538,7 @@ class ClassificationAPIView(APIView):
     parser_classes = [JSONParser]
 
     def post(self, request):
+        
         selected_features = request.data.get('features', [])
         
         if not selected_features:
@@ -544,11 +546,14 @@ class ClassificationAPIView(APIView):
 
         results = []
         try:
+            
             for file_path, label in zip(file_paths, labels):
-                if not os.path.exists(file_path):
-                    return Response({"error": f"'{file_path}' fayli topilmadi."}, status=status.HTTP_404_NOT_FOUND)
+                
+                # if not os.path.exists(file_path):
+                #     return Response({"error": f"'{file_path}' fayli topilmadi."}, status=status.HTTP_404_NOT_FOUND)
 
-                data = pd.read_csv(file_path, header=None)
+                data = pd.read_csv(f'{file_path}', header=None)
+                
                 for column in data.columns:
                     signal_values = data[column].values
 
