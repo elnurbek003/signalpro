@@ -29,6 +29,9 @@ from django.views.decorators.csrf import csrf_exempt
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
 from django.core.files.storage import default_storage
 
 # 1. Zero Crossing Rate (ZCR)
@@ -120,7 +123,7 @@ class ZCRView(View):
 
 
         # CSV faylini o'qish
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
 
         # Signal ustunini olish
         signal = data['1'].values
@@ -183,7 +186,7 @@ class MAVView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
         signal = data['1'].values
         mav_value = calculate_mav(signal)
         image_base64 = generate_graph(signal, 'MAV')
@@ -194,7 +197,7 @@ class DASDVView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
         signal = data['2'].values
         dasdv_value = calculate_dasdv(signal)
         image_base64 = generate_graph(signal, 'DASDV')
@@ -203,7 +206,7 @@ class GView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
         signal = data['3'].values
         g_value = calculate_g(signal)
         image_base64 = generate_graph(signal, 'G')
@@ -214,7 +217,7 @@ class SSIView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
         signal = data['4'].values
         ssi_value = calculate_ssi(signal)
         image_base64 = generate_graph(signal, 'SSI')
@@ -225,7 +228,7 @@ class VARView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
         signal = data['5'].values
         var_value = calculate_var(signal)
         image_base64 = generate_graph(signal, 'VAR')
@@ -236,7 +239,7 @@ class TM3View(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
         signal = data['6'].values
         tm3_value = calculate_tm3(signal)
         image_base64 = generate_graph(signal, 'TM3')
@@ -247,7 +250,7 @@ class TM5View(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
         signal = data['7'].values
         tm5_value = calculate_tm5(signal)
         image_base64 = generate_graph(signal, 'TM5')
@@ -258,7 +261,7 @@ class RMSView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
         signal = data['1'].values
         rms_value = calculate_rms(signal)
         image_base64 = generate_graph(signal, 'RMS')
@@ -269,7 +272,7 @@ class LOGView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
         signal = data['2'].values
         log_value = calculate_log(signal)
         image_base64 = generate_graph(signal, 'LOG')
@@ -280,7 +283,7 @@ class WLView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
         signal = data['3'].values
         wl_value = calculate_wl(signal)
         image_base64 = generate_graph(signal, 'WL')
@@ -291,7 +294,7 @@ class AACView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
         signal = data['4'].values
         aac_value = calculate_aac(signal)
         image_base64 = generate_graph(signal, 'AAC')
@@ -301,7 +304,7 @@ class AACView(View):
 class Filtering(View):
     def get(self, request):
         url_path = request.path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
 
         # Signalni olish
         original_signal = data['1']
@@ -346,7 +349,7 @@ class Filtering(View):
 class Scaling(View):
     def get(self, request):
         url_path = request.path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
 
         # Signalni olish
         original_signal = data['1']
@@ -382,7 +385,7 @@ class FourierTransformView(View):
     def get(self, request):
         # CSV faylini o'qish
         url_path = request.path.split('/')
-        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/raw/master/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'hC:/Users/User/Desktop/{url_path[2]}pro.csv')
 
         # Assumption: CSV faylida 'Signal' nomli ustun bor
         if '1' not in data.columns:
@@ -425,11 +428,10 @@ class FourierTransformView(View):
 # Define file paths and labels
 
 
-
 file_paths = [
-    'https://github.com/lochinbek02/singanlspro/raw/master/okclass.csv',
-    'https://github.com/lochinbek02/singanlspro/raw/master/qisishclass.csv',
-    'https://github.com/lochinbek02/singanlspro/raw/master/yoyishclass.csv'
+    'C:/Users/User/Desktop/okclass.csv',
+    'C:/Users/User/Desktop/qisishclass.csv',
+    'C:/Users/User/Desktop/yoyishclass.csv'
 ]
 labels = ['ok', 'qo\'lni qisish', 'yoyish']
 
@@ -449,8 +451,9 @@ def calculate_metrics(signal_values, selected_features):
             else:
                 return 4 * index / N
         modified_values2 = np.array([modify_MAV2(x, i) for i, x in enumerate(signal_values)])
+
         modified_values1 = np.array([modify_MAV1(x) for x in signal_values])
-        
+        # Calculate only the requested metrics
         if 'MAV' in selected_features:
             metrics['MAV'] = np.sum(np.abs(signal_values)) / N
         if 'G' in selected_features:
@@ -464,8 +467,10 @@ def calculate_metrics(signal_values, selected_features):
         if 'VAR' in selected_features:
             metrics['VAR'] = np.var(signal_values)
         if 'TM3' in selected_features:
+            VAR = np.var(signal_values)
             metrics['TM3'] = np.mean(np.abs(signal_values))
         if 'TM5' in selected_features:
+            VAR = np.var(signal_values)
             metrics['TM5'] = np.mean(signal_values**2)
         if 'RMS' in selected_features:
             metrics['RMS'] = np.sqrt(np.mean(signal_values**2))
@@ -483,22 +488,40 @@ def calculate_metrics(signal_values, selected_features):
         if 'FFT' in selected_features:
             fft_values = np.fft.fft(signal_values)
             FFT_magnitude = np.abs(fft_values)  # Magnitude of the FFT
-            metrics['FFT'] = np.mean(FFT_magnitude)
+
+            # Variant 1: Maksimal magnitudani saqlash
+            FFT_max = np.max(FFT_magnitude)
+
+            # Variant 2: O'rtacha magnitudani saqlash
+            FFT_mean = np.mean(FFT_magnitude)
+
+            # Variant 3: Energiyani saqlash
+            FFT_energy = np.sum(FFT_magnitude**2)
+            metrics['FFT'] = FFT_mean
         if 'PSR' in selected_features:
             fft_values = np.fft.fft(signal_values)
             power_spectrum = np.abs(fft_values) ** 2
+
+            # Signal kuchining umumiy yig'indisi
             total_power = np.sum(power_spectrum)
+
+            # Signalning maksimal chastotasi (dominant frequency) ni topish
             dominant_frequency_power = np.max(power_spectrum)
+
+            # PSR ni hisoblash
             PSR = dominant_frequency_power / total_power if total_power > 0 else 0
             metrics['PSR'] = PSR
         if 'MNF' in selected_features:
             fft_values = np.fft.fft(signal_values)
             FFT_magnitude = np.abs(fft_values)
+
+            # Chastotalar diapazoni bo'yicha o'rtacha hisoblash
             frequencies = np.fft.fftfreq(len(signal_values))
             MNF = np.sum(frequencies * FFT_magnitude) / np.sum(FFT_magnitude)
-            metrics['MNF'] = MNF
+            metrics['MNF'] =MNF
+        
         if 'WAMP' in selected_features:
-            metrics['WAMP'] = np.mean(np.abs(signal_values))
+            metrics['WAMP'] = np.mean(np.abs(signal_values)) 
         if 'IEMG' in selected_features:
             metrics['IEMG'] = np.sum(np.abs(signal_values))
         if 'logDetect' in selected_features:
@@ -512,15 +535,6 @@ def calculate_metrics(signal_values, selected_features):
 class ClassificationAPIView(APIView):
     parser_classes = [JSONParser]
 
-    def download_file(self, url):
-        try:
-            response = requests.get(url)
-            response.raise_for_status()
-            return pd.read_csv(StringIO(response.text), header=None)
-        except requests.exceptions.RequestException as e:
-            print(f"Error downloading file: {e}")
-            return None
-
     def post(self, request):
         selected_features = request.data.get('features', [])
         
@@ -530,10 +544,10 @@ class ClassificationAPIView(APIView):
         results = []
         try:
             for file_path, label in zip(file_paths, labels):
-                data = self.download_file(file_path)
-                if data is None:
-                    return Response({"error": f"Failed to download or read file at '{file_path}'."}, status=status.HTTP_404_NOT_FOUND)
+                if not os.path.exists(file_path):
+                    return Response({"error": f"'{file_path}' fayli topilmadi."}, status=status.HTTP_404_NOT_FOUND)
 
+                data = pd.read_csv(file_path, header=None)
                 for column in data.columns:
                     signal_values = data[column].values
 
@@ -546,9 +560,6 @@ class ClassificationAPIView(APIView):
                     metrics = calculate_metrics(signal_values, selected_features)
                     metrics['Label'] = label  # Add label to each file's metrics
                     results.append(metrics)
-
-            if not results:
-                return Response({"error": "No valid results found."}, status=status.HTTP_400_BAD_REQUEST)
 
             # Generate CSV response
             response = HttpResponse(content_type='text/csv')
@@ -563,44 +574,72 @@ class ClassificationAPIView(APIView):
         except Exception as e:
             print(f"Error processing request: {e}")
             return Response({"error": "An error occurred while processing the request."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+def train_and_evaluate_model(model, X_train, X_test, y_train, y_test):
+    """
+    Ushbu funksiya modelni o'qitadi va baholaydi.
+    """
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    classification_rep = classification_report(y_test, y_pred, output_dict=True)
+    return accuracy, classification_rep
+
 @csrf_exempt
 def upload_csv(request):
     if request.method == 'POST' and request.FILES.get('file'):
         csv_file = request.FILES['file']
-        
-        # Check if file is a CSV
-        if not csv_file.name.endswith('.csv'):
-            return JsonResponse({'error': 'The uploaded file is not a CSV file.'}, status=400)
-        
-        # Save the uploaded file
-        file_path = default_storage.save(f"uploads/{csv_file.name}", csv_file)
-        file_path = os.path.join('media', file_path)  # Make it accessible via the media URL
-        
-        # Load the CSV using pandas
-        df = pd.read_csv(file_path)
-        
-        # Split the data into features (X) and labels (y)
-        X = df.drop(columns=['Label'])
-        y = df['Label']
-        
-        # Split data into training and testing sets
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-        
-        # Train the RandomForest model
-        model = RandomForestClassifier(n_estimators=100, random_state=42)
-        model.fit(X_train, y_train)
-        
-        # Make predictions
-        y_pred = model.predict(X_test)
-        
-        # Evaluate the model
-        accuracy = accuracy_score(y_test, y_pred)
-        classification_rep = classification_report(y_test, y_pred)
-        
-        return JsonResponse({
-            'message': 'File uploaded and processed successfully.',
-            'accuracy': accuracy,
-            'classification_report': classification_rep
-        })
 
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+        # Faqat CSV fayl qabul qilishni tekshirish
+        if not csv_file.name.endswith('.csv'):
+            return JsonResponse({'error': 'Yuklangan fayl CSV formatida emas.'}, status=400)
+
+        # Faylni saqlash
+        file_path = default_storage.save(f"uploads/{csv_file.name}", csv_file)
+        file_path = os.path.join('media', file_path)  # Media papkasiga yo'lni olish
+
+        try:
+            # CSV faylni yuklash
+            df = pd.read_csv(file_path)
+
+            # Ma'lumotlarni ajratish: X (xususiyatlar) va y (yorliqlar)
+            X = df.drop(columns=['Label'])
+            y = df['Label']
+
+            # Ma'lumotlarni o'qitish va test uchun bo'lish
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+            # Modellar ro'yxati
+            models = {
+                'RandomForestClassifier': RandomForestClassifier(n_estimators=100, random_state=42),
+                'LogisticRegression': LogisticRegression(max_iter=1000, random_state=42),
+                'SVC': SVC(kernel='linear', random_state=42),
+                'KNeighborsClassifier': KNeighborsClassifier(n_neighbors=5)
+            }
+
+            # Natijalarni saqlash uchun ro'yxat
+            results = []
+
+            # Har bir modelni o'qitish va baholash
+            for model_name, model in models.items():
+                accuracy, classification_rep = train_and_evaluate_model(model, X_train, X_test, y_train, y_test)
+                results.append({
+                    'model': model_name,
+                    'accuracy': accuracy,
+                    'classification_report': classification_rep
+                })
+
+            # Eng yaxshi modelni aniqlash
+            best_model = max(results, key=lambda x: x['accuracy'])
+
+            # Natijalarni qaytarish
+            return JsonResponse({
+                'message': 'Fayl muvaffaqiyatli yuklandi va qayta ishlangan.',
+                'results': results,  # Barcha modellar uchun natijalar
+                'best_model': best_model  # Eng yaxshi model
+            })
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Noto‘g‘ri so‘rov.'}, status=400)
