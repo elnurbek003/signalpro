@@ -123,7 +123,7 @@ class ZCRView(View):
 
 
         # CSV faylini o'qish
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
 
         # Signal ustunini olish
         signal = data['1'].values
@@ -186,7 +186,7 @@ class MAVView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
         signal = data['1'].values
         mav_value = calculate_mav(signal)
         image_base64 = generate_graph(signal, 'MAV')
@@ -197,7 +197,7 @@ class DASDVView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
         signal = data['2'].values
         dasdv_value = calculate_dasdv(signal)
         image_base64 = generate_graph(signal, 'DASDV')
@@ -206,7 +206,7 @@ class GView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
         signal = data['3'].values
         g_value = calculate_g(signal)
         image_base64 = generate_graph(signal, 'G')
@@ -217,7 +217,7 @@ class SSIView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
         signal = data['4'].values
         ssi_value = calculate_ssi(signal)
         image_base64 = generate_graph(signal, 'SSI')
@@ -228,7 +228,7 @@ class VARView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
         signal = data['5'].values
         var_value = calculate_var(signal)
         image_base64 = generate_graph(signal, 'VAR')
@@ -239,7 +239,7 @@ class TM3View(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
         signal = data['6'].values
         tm3_value = calculate_tm3(signal)
         image_base64 = generate_graph(signal, 'TM3')
@@ -250,7 +250,7 @@ class TM5View(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
         signal = data['7'].values
         tm5_value = calculate_tm5(signal)
         image_base64 = generate_graph(signal, 'TM5')
@@ -261,7 +261,7 @@ class RMSView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
         signal = data['1'].values
         rms_value = calculate_rms(signal)
         image_base64 = generate_graph(signal, 'RMS')
@@ -272,7 +272,7 @@ class LOGView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
         signal = data['2'].values
         log_value = calculate_log(signal)
         image_base64 = generate_graph(signal, 'LOG')
@@ -283,7 +283,7 @@ class WLView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
         signal = data['3'].values
         wl_value = calculate_wl(signal)
         image_base64 = generate_graph(signal, 'WL')
@@ -294,7 +294,7 @@ class AACView(View):
     def get(self, request):
         url_path = request.path
         url_path=url_path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
         signal = data['4'].values
         aac_value = calculate_aac(signal)
         image_base64 = generate_graph(signal, 'AAC')
@@ -304,7 +304,7 @@ class AACView(View):
 class Filtering(View):
     def get(self, request):
         url_path = request.path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
 
         # Signalni olish
         original_signal = data['1']
@@ -349,7 +349,7 @@ class Filtering(View):
 class Scaling(View):
     def get(self, request):
         url_path = request.path.split('/')
-        data = pd.read_csv(f'C:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'https://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
 
         # Signalni olish
         original_signal = data['1']
@@ -385,7 +385,7 @@ class FourierTransformView(View):
     def get(self, request):
         # CSV faylini o'qish
         url_path = request.path.split('/')
-        data = pd.read_csv(f'hC:/Users/User/Desktop/{url_path[2]}pro.csv')
+        data = pd.read_csv(f'hhttps://github.com/lochinbek02/singanlspro/blob/master/{url_path[2]}pro.csv')
 
         # Assumption: CSV faylida 'Signal' nomli ustun bor
         if '1' not in data.columns:
@@ -429,9 +429,9 @@ class FourierTransformView(View):
 
 
 file_paths = [
-    'C:/Users/User/Desktop/okclass.csv',
-    'C:/Users/User/Desktop/qisishclass.csv',
-    'C:/Users/User/Desktop/yoyishclass.csv'
+    'https://github.com/lochinbek02/singanlspro/blob/master/okclass.csv',
+    'https://github.com/lochinbek02/singanlspro/blob/master/qisishclass.csv',
+    'https://github.com/lochinbek02/singanlspro/blob/master/yoyishclass.csv'
 ]
 labels = ['ok', 'qo\'lni qisish', 'yoyish']
 
