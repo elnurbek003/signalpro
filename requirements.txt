@@ -121,7 +121,6 @@ pydantic_core==2.14.6
 
 # Protobuf
 proto-plus==1.26.1
-protobuf==5.26.1
 
 # Jinja2 va templating
 Jinja2==3.1.3
