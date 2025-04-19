@@ -24,7 +24,7 @@ Flask==2.3.3
 flask-restx==1.1.0
 freezegun==1.1.0
 geoip2==2.9.0
-gevent==21.8.0
+gevent==22.10.2
 google-ai-generativelanguage==0.6.15
 google-api-core==2.24.2
 google-api-python-client==2.166.0
