@@ -34,8 +34,11 @@ ENVIRONMENT = env.str("ENVIRONMENT", default="development")
 
 # Application definition
 CSRF_TRUSTED_ORIGINS = [
-    'https://singanlspro-production.up.railway.app',
-    # Add other trusted origins here if needed
+    'https://signalpro.onrender.com',
+    'http://signalpro.onrender.com',
+    'https://*.onrender.com',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000'
 ]
 CSRF_COOKIE_SECURE = True
 
